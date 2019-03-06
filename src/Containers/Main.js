@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 import "./Main.css";
 import Rectangle from '../Components/Rectangle/Rectangle';
 import RectPointRating from '../Components/PointRectangle/Rect-Point-Rating';
+import Star from "../Components/Star/Star";
 
 class Main extends Component{
     state = {
         rectDesired:3,
         rectDefault:0,
-        decimalRectMax:5,
-        decimalRectCurr:3.3
+        decimalRectMax:6,
+        decimalRectCurr:3.3,
+
+        starDesired:2,
+        starDefault:0
     }
 
     changeRectDesired = (val) => {
@@ -26,6 +30,19 @@ class Main extends Component{
        this.setState({decimalRectCurr:val},() => {
           // console.log(this.state.decimalRectCurr)
         });
+    }
+
+
+    updateStarDesired = (val) => {
+        this.setState({
+            starDesired:val
+        })
+    }
+
+    updateStarDefault = (val) => {
+        this.setState({
+            starDefault:val
+        })
     }
 
     render(){
@@ -60,10 +77,29 @@ class Main extends Component{
                             onChange={this.changeDecimalCurr}
                             min={0} max={this.state.decimalRectMax} />
 
+                    <h5>User Rated <span>{this.state.decimalRectCurr} / {this.state.decimalRectMax}</span></h5>
+
                 </div>
-            </div>
-            
+            </div>        
            
+
+            
+
+            <div className="boxDiv">
+                <p>Rating Using Star</p>
+                <div className="itemDiv">
+                    <p>Star with Selected Values</p>
+                    <Star maxRating={5} currentRating={this.state.starDesired} 
+                            fontSize={50} selectedColor="#ff9800"
+                            updateRating={this.updateStarDesired}/>
+                    <h5>User Rated <span>{this.state.starDesired} / 5</span></h5>
+                </div>
+                <div className="itemDiv">
+                    <p>Star with Default Values</p>
+                    <Star updateRating={this.updateStarDefault}/>
+                    <h5>User Rated <span>{this.state.starDefault} / 5</span></h5>
+                </div>
+            </div>   
 
             <div className="boxDiv">
                 <p>Variations in Directions</p>
@@ -92,7 +128,9 @@ class Main extends Component{
                             selectedColor="#3fdfdf" emptyColor="#933fdf"/>
                 </div>
             </div>
-                     
+
+
+           
         </div>)
     }
 }
