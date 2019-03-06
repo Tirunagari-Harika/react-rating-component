@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import Tooltip from '@material-ui/core/Tooltip';
-import "./Star.css";
+/* import "./Star.css"; */
 
 const StarStyleWrapper = styled.div`    
     transform:rotateY(180deg);
@@ -20,7 +20,7 @@ const StarStyleWrapper = styled.div`
     .stars:hover, .stars:hover ~ .stars{
         cursor:pointer;
         &:before{
-            content:\104;            
+            content:"\\2605";            
             position:absolute;
             left:0%;
             top:0%;
@@ -29,7 +29,7 @@ const StarStyleWrapper = styled.div`
 
    .fullStar{             
         &:before {
-            content:\104;
+            content:"\\2605"; 
             position:absolute;
             left:0%;
             top:0%;  
