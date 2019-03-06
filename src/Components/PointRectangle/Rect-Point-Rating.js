@@ -85,8 +85,8 @@ class RectPointRating extends Component{
 export default RectPointRating;
 
 RectPointRating.propTypes = {
-    maxRating: PropTypes.number.isRequired,
-    currentRating: PropTypes.number.isRequired,
+    maxRating: PropTypes.number,
+    currentRating: PropTypes.number,
     selectedColor: PropTypes.string,
     emptyColor:PropTypes.string,
     direction:PropTypes.string   
@@ -95,5 +95,7 @@ RectPointRating.propTypes = {
 RectPointRating.defaultProps = {    
     selectedColor:"#bec314",
     emptyColor:"transparent",
-    direction:"left"
+    direction:"left",
+    currentRating:0,
+    maxRating:5
 }
