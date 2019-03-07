@@ -1,23 +1,32 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import "./Rect-Point-Rating.css";
+import styled from "styled-components";
 
-class RectPointRating extends Component{
-    backgrounds = {};
-    rectObj = {};
+const generateLinearGradient = (props) => {
+    console.log("Linear Gradient ");   
+    console.log(props);
+    return "linear-gradient(" + props.direction +"deg," + 
+                    props.selectedBackground.color + " " + props.selectedBackground.percent + "%," +
+                    props.emptyBackground.color + " " + props.emptyBackground.percent + "%)"
+}
+
+const LinearGradient = styled.span`
+    .rating{
+        background-image: ${props => generateLinearGradient(props.gradientObj)}                
+    }
+`
+
+
+
+class RectPointRating extends Component{   
+    rectObj = {percent1:0,percent2:0};
+    state = {};
     
     constructor(props){
         super(props);                    
-        this.rectObj.direction = this.getAngle(this.props.direction);  
-        this.backgrounds = {
-            selectBackground: this.generateLinearGradient(this.props.selectedColor,100,this.props.emptyColor,0),
-            emptyBackground: this.generateLinearGradient(this.props.selectedColor,0,
-                this.props.emptyColor,0)
-        };
-
-        this.state = {
-            maxRating:parseInt(this.props.maxRating)                     
-        }
+        this.rectObj.direction = this.getAngle(this.props.direction);        
+        this.maxRating = parseInt(this.props.maxRating);       
     }
 
     getAngle = (direction) => {
@@ -34,51 +43,59 @@ class RectPointRating extends Component{
         currentRating = parseFloat(currentRating);        
         return {currentRating:currentRating};
     }
-
-    generateLinearGradient = (color1,percent1,color2,percent2) => {
-        let backgroundStyle = [];
-        backgroundStyle.push(this.rectObj.direction + "deg");        
-        backgroundStyle.push(color1 + " " + percent1 +"%");
-        backgroundStyle.push(color2 + " " + percent2 + "%");
-
-        let b = "linear-gradient(" + [...backgroundStyle].join(",") + ")";
-        return b;
-    }
-
+   
     addRate = (id) => {
         let rating = parseInt(this.state.currentRating);
-        let decimal = (this.state.currentRating * 10)%10;
-        let backgroundStyle = "";       
+        let decimal = (this.state.currentRating * 10)%10;          
 
-        if(id <= rating){
-            backgroundStyle = this.backgrounds.selectBackground;
+        if(id <= rating){           
+           this.rectObj.percent1 = 100;
+           this.rectObj.percent2 = 0;          
         }
         else if(id == rating+1  && decimal !== 0){
             let i = decimal*10;           
-            backgroundStyle = this.generateLinearGradient(this.props.selectedColor,i,
-                this.props.emptyColor,i);
+            this.rectObj.percent1 = i;
+            this.rectObj.percent2 = i;           
         }
-        else if(id > rating){
-            backgroundStyle = this.backgrounds.emptyBackground;
+        else if(id > rating){          
+          this.rectObj.percent1 = 0;
+          this.rectObj.percent2 = 0;          
         }       
-        return {backgroundImage:backgroundStyle};
+      
     }
 
+    generateGradientObj = () => {
+        let gradientObj = {
+            direction:this.rectObj.direction,
+            selectedBackground:{
+                color:this.props.selectedColor,
+                percent: this.rectObj.percent1
+            },
+            emptyBackground:{
+                color:this.props.emptyColor,
+                percent:this.rectObj.percent2
+            }
+        }
+
+        return gradientObj;
+    }
+
+
     createRating = () => {       
-        let arr = [];
-        for(let i=0; i<this.state.maxRating; i++){
-            let addRate = this.addRate(i+1);
-            arr.push(<div className="rectangle" key={i}
-                        style={addRate}
-                        id={i+1}></div>);
+        let arr = [];        
+        for(let i=0; i<this.maxRating; i++){
+            this.addRate(i+1); 
+            let gradientObj = this.generateGradientObj();           
+            arr.push(<LinearGradient gradientObj={gradientObj} key={i}>     
+                <div className="rectangle rating"                        
+                        id={i+1}></div>
+            </LinearGradient>);
         }       
         return arr;
     }
 
     render(){     
-        return (<div>
-            {this.createRating()}
-        </div>)
+        return (<div>{this.createRating()}</div>)
     }
 }
 
