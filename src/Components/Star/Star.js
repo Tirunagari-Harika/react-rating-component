@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import Tooltip from '@material-ui/core/Tooltip';
-/* import "./Star.css"; */
+import Zoom from '@material-ui/core/Zoom';
 
 const StarStyleWrapper = styled.div`    
     transform:rotateY(180deg);
@@ -12,8 +12,7 @@ const StarStyleWrapper = styled.div`
         color: ${props => props.stylesObj.selectedColor};
         font-size:${props => props.stylesObj.fontSize}px;
         position:relative;
-        display:inline-block;
-        text-shadow:${props => "2px 2px 4px " +  props.stylesObj.selectedColor};
+        display:inline-block;       
         margin:5px;       
     } 
 
@@ -63,7 +62,8 @@ class Star extends Component{
         let arr = [];
         for(let i=this.state.maxRating; i>=1; i--){
             let addRate = this.addRate(i);
-            arr.push(<Tooltip title={i} placement="top" key={i-1}>
+            arr.push(<Tooltip title={i} placement="top" TransitionComponent={Zoom} 
+                    key={i-1}>
                  <div className={[...addRate].join(" ")}
                 id={i} 
                 onClick={(event) => this.markRate(event.currentTarget.id)}>&#9734;</div>
@@ -96,7 +96,7 @@ Star.propTypes = {
 }
 
 Star.defaultProps = {
-    fontSize:50,
+    fontSize:100,
     selectedColor:"yellow",
     maxRating:5,
     currentRating:0
