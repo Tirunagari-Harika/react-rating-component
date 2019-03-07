@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import "./Rectangle.css";
 import Tooltip from '@material-ui/core/Tooltip';
+import Zoom from '@material-ui/core/Zoom';
 
 const StyleWrapper = styled.div`
     
     transform:rotateY(180deg);   
 
-    .rectangle:hover, .rectangle:hover ~ .rectangle{        
+    .rectangle:hover, .rectangle:hover ~ .rectangle{  
+        cursor:pointer;      
         background-image: ${props => 
             "linear-gradient(90deg," + props.selectedColor + " 100%," + props.emptyColor + " 0%)"}        
     }
@@ -57,7 +59,8 @@ class Rectangle extends Component{
             let addRate = this.addRate(i);
             styleClass.push(addRate);
             
-            arr.push(<Tooltip title={i} placement="top" key={i-1}>
+            arr.push(<Tooltip title={i} placement="top" TransitionComponent={Zoom}
+                         key={i-1}>
                 <div className={[...styleClass].join(" ")} 
                     id={i}                                            
                     onClick={(event) => this.markRate(event.currentTarget.id)}>
@@ -68,13 +71,13 @@ class Rectangle extends Component{
     }
 
     render(){
-        return (<div>
+        return (
          <StyleWrapper selectedColor={this.props.selectedColor}
                 emptyColor={this.props.emptyColor}>
                 {this.createRating()}
         </StyleWrapper>  
             
-        </div>)
+        )
     }
 }
 
