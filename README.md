@@ -3,7 +3,7 @@ To preview the rating components [Click here](https://rjomv8kmyo.codesandbox.io/
   
 ## Star
 
-###  Input
+###  Input:
  
  ```
  Star.propTypes = {
@@ -16,7 +16,7 @@ To preview the rating components [Click here](https://rjomv8kmyo.codesandbox.io/
 
  ```
  
- ###  Defualt Values
+ ###  Default Values:
   
   ```
   Star.defaultProps = {
@@ -27,7 +27,7 @@ To preview the rating components [Click here](https://rjomv8kmyo.codesandbox.io/
 }  
   ```
   
- ### Listening to event
+ ### Listening to event:
  
   ```
   markRate = (id) => {
@@ -42,7 +42,7 @@ To preview the rating components [Click here](https://rjomv8kmyo.codesandbox.io/
   ## Rectangle
   Achieving the rating in other shapes
   
-### Input
+### Input:
    ```
    Rectangle.propTypes = {
     maxRating: PropTypes.number,
@@ -53,7 +53,7 @@ To preview the rating components [Click here](https://rjomv8kmyo.codesandbox.io/
 };
  ```
   
-### DefaultValues
+### DefaultValues:
  ```
  Rectangle.defaultProps = {
     maxRating:5,
@@ -64,7 +64,7 @@ To preview the rating components [Click here](https://rjomv8kmyo.codesandbox.io/
 
  ```
  
- ### Listening to event
+ ### Listening to event:
  ```
  markRate = (id) => {       
         this.setState({currentRating:parseInt(id)},() => {
@@ -75,9 +75,9 @@ To preview the rating components [Click here](https://rjomv8kmyo.codesandbox.io/
   ```
   
   ## Rect-Point-Rating
-  Achieving rating in points
+  Achieving rating in points.
   
-  ### Input
+  ### Input:
   ```
   RectPointRating.propTypes = {
     maxRating: PropTypes.number,
@@ -88,8 +88,13 @@ To preview the rating components [Click here](https://rjomv8kmyo.codesandbox.io/
 }
 
   ```
+  Can populate the rating in different directions.
   
-  ### Default Values
+  ```
+   direction: top | left | right | bottom
+  ```
+  
+  ### Default Values:
   ```
   RectPointRating.defaultProps = {    
     selectedColor:"#bec314",
