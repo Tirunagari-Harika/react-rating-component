@@ -1,6 +1,5 @@
 # react-rating-component
-To preview the rating components 
-  <a href=”https://rjomv8kmyo.codesandbox.io/”>Demo Link </a>
+To preview the rating components [Click here](https://rjomv8kmyo.codesandbox.io/) 
   
 ## Star
 
